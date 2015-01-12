@@ -5,12 +5,12 @@ project( Ex3 )
 find_package( OpenCV REQUIRED )
 
 #
-add_executable( Ex2 
+add_executable( Ex3
 	util.cpp
 	ex3.cpp
 )
 
-target_include_directories( Ex2
+target_include_directories( Ex3
 	PRIVATE .
           ${OpenCV_INCLUDE_DIRS}
 )
