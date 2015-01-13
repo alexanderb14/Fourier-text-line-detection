@@ -79,15 +79,15 @@ int main(int argc, char** argv) {
 
     // (3) Compute iDFT on filtered complex image
     Mat rI;
-    cv::idft(thresholdedI, rI, cv::DFT_REAL_OUTPUT|cv::DFT_SCALE);
+    idft(thresholdedI, rI, cv::DFT_REAL_OUTPUT|cv::DFT_SCALE);
     rI.convertTo(rI, CV_8U);
     // imshow("idft", rI);
 
     // (4) Apply Threshold to get binary result
     double min, max;
-    cv::minMaxLoc(rI, &min, &max);
+    minMaxLoc(rI, &min, &max);
 
-    cv::threshold(rI, rI, max*0.82, 255, cv::THRESH_BINARY_INV);
+    threshold(rI, rI, max*0.82, 255, cv::THRESH_BINARY_INV);
     // imshow("rI", rI);
 
     // (5) Draw bounding boxes
@@ -97,7 +97,7 @@ int main(int argc, char** argv) {
     vector<vector<Point> > contours;
     vector<Vec4i> hierarchy;
 
-    findContours( rI, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
+    findContours(rI, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0));
 
     vector<RotatedRect> minRect( contours.size() );
 
