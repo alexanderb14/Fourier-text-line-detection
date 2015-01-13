@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
     } else {
         I = imread(argv[1], CV_LOAD_IMAGE_GRAYSCALE);
     }
-    //imshow("Input Image", I);    // Show the result
+    imshow("Input Image", I);    // Show the result
 
 
     // (1) Compute DFT
@@ -101,14 +101,16 @@ int main(int argc, char** argv) {
 
     vector<RotatedRect> minRect( contours.size() );
 
-    for( int i = 0; i < contours.size(); i++ ) { 
+    for (int i = 0; i < contours.size(); i++) { 
         minRect[i] = minAreaRect( Mat(contours[i]) );
     }
 
-    for( int i = 0; i< contours.size(); i++ ) {
+    for (int i = 0; i< contours.size(); i++) {
         Point2f rect_points[4]; minRect[i].points( rect_points );
-        for( int j = 0; j < 4; j++ )
-            line( finalI, rect_points[j], rect_points[(j+1)%4], cv::Scalar(0, 0, 255), 1, 8 ); 
+
+        if (contourArea(contours[i]) > contours.size())
+            for (int j = 0; j < 4; j++)
+                line( finalI, rect_points[j], rect_points[(j+1)%4], cv::Scalar(0, 0, 255), 2, 8 ); 
     } 
 
     imshow("finalI", finalI);
